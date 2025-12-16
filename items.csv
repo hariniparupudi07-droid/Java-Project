@@ -1,4 +1,7 @@
-itemId,name,threshold
-L1,Laptop,150
-M1,Mobile,100
-M2,Mobile Pro,120
+L1,Laptop Basic
+L2,Laptop Pro
+L3,Laptop Ultra
+M1,Mobile Basic
+M2,Mobile Pro
+M3,Mobile Ultra
+null,null

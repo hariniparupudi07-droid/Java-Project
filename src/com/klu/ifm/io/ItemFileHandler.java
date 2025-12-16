@@ -6,40 +6,36 @@ import java.util.*;
 
 public class ItemFileHandler {
 
+    // READ ITEMS FROM CSV
     public static List<Item> readItems(String fileName) {
         List<Item> items = new ArrayList<>();
 
         try (BufferedReader br = new BufferedReader(new FileReader(fileName))) {
             String line;
-            br.readLine();
 
             while ((line = br.readLine()) != null) {
-                line = line.trim();
-                if (line.isEmpty()) continue; 
-
                 String[] data = line.split(",");
-                if (data.length < 3) continue;
-
-                String itemId = data[0].trim();
-                String name = data[1].trim();
-                int threshold = Integer.parseInt(data[2].trim());
-
-                items.add(new Item(itemId, name, threshold));
+                // Only itemId and name
+                items.add(new Item(data[0], data[1]));
             }
-
-        } catch (IOException | NumberFormatException e) {
-            System.out.println("File read error: " + e.getMessage());
+        } catch (Exception e) {
+            System.out.println("Error reading file: " + e.getMessage());
         }
 
         return items;
     }
 
-	public static void writeItems(String string, List<Item> items) {
-		// TODO Auto-generated method stub
-		
-	}
+    // WRITE ITEMS TO CSV
+    public static void writeItems(String fileName, List<Item> items) {
+        try (BufferedWriter bw = new BufferedWriter(new FileWriter(fileName))) {
 
-   
+            for (Item item : items) {
+                bw.write(item.getItemId() + "," + item.getName());
+                bw.newLine();
+            }
+
+        } catch (Exception e) {
+            System.out.println("Error writing file: " + e.getMessage());
+        }
+    }
 }
-
-
